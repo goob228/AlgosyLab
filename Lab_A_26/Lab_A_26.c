@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996)
+#pragma warning(disable : 4996)
 
 #include <stdio.h>
 
@@ -14,8 +14,7 @@ typedef struct List {
     int year;
     float t;
     struct List* next;
-}
-List;
+} List;
 
 void PrintList(struct List* node) {
     for (; node != NULL; node = node->next)
@@ -64,7 +63,8 @@ struct List* CreateNode(int day, int month, int year, float temperature) {
     return temp;
 }
 
-void InsertBefore(struct List* node, int day, int month, int year, float temperature) {
+void InsertBefore(struct List* node, int day, int month, int year,
+    float temperature) {
     struct List* temp = malloc(sizeof(struct List));
 
     if (temp != NULL && node != NULL) {
@@ -98,21 +98,22 @@ int main(void) {
             node = &root;
 
             while (*node != NULL) {
-                // условие сортировки по температуре и по дате если температуры совпадают
-                if ((*node)->t > t || ((*node)->t == t &&
-                    ((((*node)->month + (*node)->year * M) > (month + year * M)) ||
-                        ((((*node)->month + (*node)->year * M) == (month + year * M)) &&
-                            ((*node)->day > day)))
-
-                    )) {
-                    // вставляем элемент перед текущим 
+                // условие сортировки по температуре и по дате если температуры
+                // совпадают
+                if ((*node)->t > t ||
+                    ((*node)->t == t &&
+                        ((((*node)->month + (*node)->year * M) > (month + year * M)) ||
+                            ((((*node)->month + (*node)->year * M) == (month + year * M)) &&
+                                ((*node)->day > day))))) {
+                    // вставляем элемент перед текущим
                     InsertBefore(*node, day, month, year, t);
                     break;
                 }
                 else
                     node = &(*node)->next;
             }
-            // если список дошел до конца или список изначально пустой то создаём элемент
+            // если список дошел до конца или список изначально пустой то создаём
+            // элемент
             if (*node == NULL) {
                 *node = CreateNode(day, month, year, t);
             }
@@ -128,7 +129,8 @@ int main(void) {
 
     printf("\n");
     float search_temp;
-    while (printf("Type temperature to search for: ") && scanf("%f", &search_temp)) {
+    while (printf("Type temperature to search for: ") &&
+        scanf("%f", &search_temp)) {
         if (Search(root, search_temp))
             printf("%.1f is on the list\n", search_temp);
         else

@@ -6,7 +6,7 @@
 
 #include <string.h>
 
-#define M 12 // months in a year
+#define M 12 // месяцев в году
 
 typedef struct List {
     int day;
@@ -98,20 +98,21 @@ int main(void) {
             node = &root;
 
             while (*node != NULL) {
-
+                // условие сортировки по температуре и по дате если температуры совпадают
                 if ((*node)->t > t || ((*node)->t == t &&
                     ((((*node)->month + (*node)->year * M) > (month + year * M)) ||
                         ((((*node)->month + (*node)->year * M) == (month + year * M)) &&
                             ((*node)->day > day)))
 
                     )) {
+                    // вставляем элемент перед текущим 
                     InsertBefore(*node, day, month, year, t);
                     break;
                 }
                 else
                     node = &(*node)->next;
             }
-
+            // если список дошел до конца или список изначально пустой то создаём элемент
             if (*node == NULL) {
                 *node = CreateNode(day, month, year, t);
             }
@@ -121,7 +122,6 @@ int main(void) {
 
     printf("Sorted list:\n");
     PrintList(root);
-
 
     printf("\nList of days with negative average temperature:\n");
     PrintListBelowZero(root);
